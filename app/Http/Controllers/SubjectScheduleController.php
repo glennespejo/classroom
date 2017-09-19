@@ -15,7 +15,7 @@ class SubjectScheduleController extends Controller
     public function index()
     {
         $subjectSchedules = SubjectSchedule::all();
-        return response()->json($subjectSchedule);
+        return response()->json($subjectSchedules);
     }
 
     /**

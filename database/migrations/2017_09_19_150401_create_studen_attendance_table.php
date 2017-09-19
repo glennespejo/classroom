@@ -13,7 +13,7 @@ class CreateStudenAttendanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_attendace', function (Blueprint $table) {
+        Schema::create('student_attendaces', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('student_subject_id')->unsigned()->nullable();
             $table->enum('status', ['absent', 'present'])->default('present');

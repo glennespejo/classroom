@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', 'LoginController@loginApi');
-
-Route::resource('subject_schedule', 'SubjectScheduleController');
-Route::resource('student_subject', 'StudentSubjectController');
+Route::resource('subject-schedules', 'SubjectScheduleController');
+Route::resource('student-subjects', 'StudentSubjectController');
+Route::resource('student-attendances', 'StudentAttendaceController');
+Route::resource('student-grades', 'StudentGradeController');
