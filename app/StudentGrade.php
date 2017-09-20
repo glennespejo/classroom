@@ -16,6 +16,6 @@ class StudentGrade extends Model
         'midter_final_grade',
         'finals_quiz_grade',
         'finals_exam_grade',
-        'finals_final_grade'
+        'finals_final_grade',
     ];
 }
