@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStudenGradesTable extends Migration
 {
@@ -25,6 +25,7 @@ class CreateStudenGradesTable extends Migration
             $table->string('finals_quiz_grade')->nullable();
             $table->string('finals_exam_grade')->nullable();
             $table->string('finals_final_grade')->nullable();
+            $table->string('total')->nullable();
             $table->timestamps();
         });
     }

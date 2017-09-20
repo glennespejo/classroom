@@ -11,14 +11,14 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', 'LoginController@loginApi');
 Route::resource('subject-schedules', 'SubjectScheduleController');
 Route::resource('student-subjects', 'StudentSubjectController');
 Route::resource('student-attendances', 'StudentAttendaceController');
 Route::resource('student-grades', 'StudentGradeController');
+Route::post('/login', 'LoginController@loginApi');
