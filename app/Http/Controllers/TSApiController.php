@@ -38,7 +38,7 @@ class TSApiController extends Controller
                 'message' => 'Password does not match.',
             ], 400);
         }
-        $password = \Hash::make($request->all());
+        $password = \Hash::make($request->password);
         $data = $request->all();
         $data['password'] = $password;
         $user = new User;
