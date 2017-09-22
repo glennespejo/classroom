@@ -32,8 +32,17 @@ class TSApiController extends Controller
                 'message' => 'Email already exists.',
             ], 400);
         }
+        if ($request->password !== $request->password_confirm) {
+            return response()->json([
+                'error' => 'user_email',
+                'message' => 'Password does not match.',
+            ], 400);
+        }
+        $password = \Hash::make($request->all());
+        $data = $request->all();
+        $data['password'] = $password;
         $user = new User;
-        $user->fill($request->all())->save();
+        $user->fill($data)->save();
 
         return response()->json($user);
     }
