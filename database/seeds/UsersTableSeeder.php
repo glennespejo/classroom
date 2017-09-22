@@ -53,11 +53,12 @@ class UsersTableSeeder extends Seeder
         $subject_stud->student_id = $user->id;
         $subject_stud->save();
 
-        $subject_stud = new StudentGrade;
-        $subject_stud->student_schedule_id = $subject_stud->id;
-        $subject_stud->prelim_quiz_grade = '95';
-        $subject_stud->prelim_exam_grade = '75';
-        $subject_stud->prelim_final_grade = '90';
-        $subject_stud->save();
+        $subject_studs = new StudentGrade;
+        $subject_studs->subject_code = $subject_stud->subject_code;
+        $subject_studs->student_id = $user->id;
+        $subject_studs->prelim_quiz_grade = '95';
+        $subject_studs->prelim_exam_grade = '75';
+        $subject_studs->prelim_final_grade = '90';
+        $subject_studs->save();
     }
 }

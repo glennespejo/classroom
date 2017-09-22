@@ -21,4 +21,19 @@ Route::resource('subject-schedules', 'SubjectScheduleController');
 Route::resource('student-subjects', 'StudentSubjectController');
 Route::resource('student-attendances', 'StudentAttendaceController');
 Route::resource('student-grades', 'StudentGradeController');
+//register Schedule pass teacher_id
+Route::post('/register/subject', 'TSApiController@regSubject');
+// get classroom pass subject code
+Route::get('/get/classroom', 'TSApiController@getClassroom');
+//pass teacher_id
+Route::get('/get/schedule', 'TSApiController@getSchedules');
+// get grade
+Route::get('/student/grade', 'TSApiController@getGrades');
+// add grade
+Route::post('/add/grade', 'TSApiController@addGrades');
+// update grade
+Route::patch('/update/grade', 'TSApiController@updateGrades');
+
+Route::post('/register', 'TSApiController@register');
+
 Route::post('/login', 'LoginController@loginApi');

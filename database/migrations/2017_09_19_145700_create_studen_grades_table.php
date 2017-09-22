@@ -15,7 +15,8 @@ class CreateStudenGradesTable extends Migration
     {
         Schema::create('student_grades', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('student_schedule_id')->unsigned()->nullable();
+            $table->string('subject_code')->nullable();
+            $table->string('student_id')->nullable();
             $table->string('prelim_quiz_grade')->nullable();
             $table->string('prelim_exam_grade')->nullable();
             $table->string('prelim_final_grade')->nullable();
