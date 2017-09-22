@@ -21,20 +21,20 @@ class TSApiController extends Controller
         }
         if (!isset($request->email)) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
         $user = User::where('email', $request->email)->first();
         if ($user) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Email already exists.',
             ], 400);
         }
         if ($request->password !== $request->password_confirm) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Password does not match.',
             ], 400);
         }
@@ -51,14 +51,14 @@ class TSApiController extends Controller
     {
         if (empty($request->all())) {
             return response()->json([
-                'error' => 'empty_request',
+                'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
 
         if (!isset($request->teacher_id)) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
@@ -72,7 +72,7 @@ class TSApiController extends Controller
     {
         if (!isset($request->teacher_id)) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
@@ -81,7 +81,7 @@ class TSApiController extends Controller
 
         if (empty($user)) {
             return response()->json([
-                'error' => 'user_not_found',
+                'error' => 'Oops!',
                 'message' => 'User does not exist.',
             ], 404);
         }
@@ -93,7 +93,7 @@ class TSApiController extends Controller
     {
         if (!isset($request->subject_code)) {
             return response()->json([
-                'error' => 'user_email',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
@@ -102,7 +102,7 @@ class TSApiController extends Controller
 
         if (empty($class)) {
             return response()->json([
-                'error' => 'class_not_found',
+                'error' => 'Oops!',
                 'message' => 'Class does not exist.',
             ], 404);
         }
@@ -117,14 +117,14 @@ class TSApiController extends Controller
     {
         if (!isset($request->subject_code) || !isset($request->student_id)) {
             return response()->json([
-                'error' => 'student_subject_id',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
         $user = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $request->student_id)->first();
         if (empty($user)) {
             return response()->json([
-                'error' => 'student_subject_id',
+                'error' => 'Oops!',
                 'message' => 'Student is not enrolled.',
             ], 404);
         }
@@ -135,20 +135,20 @@ class TSApiController extends Controller
     {
         if (empty($request->all())) {
             return response()->json([
-                'error' => 'empty_request',
+                'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
         if (!isset($request->subject_code) || !isset($request->student_id)) {
             return response()->json([
-                'error' => 'student_subject_id',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
         $user = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $request->student_id)->first();
         if ($user) {
             return response()->json([
-                'error' => 'grade_exist',
+                'error' => 'Oops!',
                 'message' => 'Grade exists.',
             ], 404);
         }
@@ -165,20 +165,20 @@ class TSApiController extends Controller
 
         if (empty($request->all())) {
             return response()->json([
-                'error' => 'empty_request',
+                'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
         if (!isset($request->subject_code) || !isset($request->student_id)) {
             return response()->json([
-                'error' => 'student_subject_id',
+                'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
         $user = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $request->student_id)->first();
         if (empty($user)) {
             return response()->json([
-                'error' => 'student_subject_id',
+                'error' => 'Oops!',
                 'message' => 'Student is not enrolled.',
             ], 404);
         }
