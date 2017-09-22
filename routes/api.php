@@ -27,11 +27,11 @@ Route::post('/register/subject', 'TSApiController@regSubject');
 Route::get('/get/classroom', 'TSApiController@getClassroom');
 //pass teacher_id
 Route::get('/get/schedule', 'TSApiController@getSchedules');
-// get grade
+// get grade pass subject_code and student_id
 Route::get('/student/grade', 'TSApiController@getGrades');
-// add grade
+// add grade pass subject_code and student_id
 Route::post('/add/grade', 'TSApiController@addGrades');
-// update grade
+// update grade pass subject_code and student_id
 Route::patch('/update/grade', 'TSApiController@updateGrades');
 
 Route::post('/register', 'TSApiController@register');
