@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateStudenAttendanceTable extends Migration
 {
@@ -13,9 +13,9 @@ class CreateStudenAttendanceTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_attendaces', function (Blueprint $table) {
+        Schema::create('student_attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('student_subject_id')->unsigned()->nullable();
+            $table->string('student_subject_id')->nullable();
             $table->enum('status', ['absent', 'present'])->default('present');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateStudenAttendanceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_attendace');
+        Schema::dropIfExists('student_attendances');
     }
 }
