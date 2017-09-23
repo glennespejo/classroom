@@ -40,6 +40,8 @@ Route::patch('/update/grade', 'TSApiController@updateGrades');
 // pass subject_code
 Route::post('/add/note', 'TSApiController@addNote');
 
+Route::get('/get/notes', 'TSApiController@getNotes');
+
 Route::post('/enroll/subject', 'TSApiController@addStudentSubject');
 
 Route::post('/register', 'TSApiController@register');

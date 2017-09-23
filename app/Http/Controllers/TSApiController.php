@@ -112,8 +112,26 @@ class TSApiController extends Controller
         if ($user->type === "teacher") {
 
             $results = $class->student()->get();
-
-            return response()->json($results);
+            $datas = [];
+            foreach ($results as $result) {
+                $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->id)->first();
+                $data = [
+                    'id' => $result->id,
+                    'first_name' => $result->first_name,
+                    'last_name' => $result->last_name,
+                    'prelim_quiz_grade' => $grades->prelim_quiz_grade,
+                    'prelim_exam_grade' => $grades->prelim_exam_grade,
+                    'prelim_final_grade' => $grades->prelim_final_grade,
+                    'midterm_quiz_grade' => $grades->midterm_quiz_grade,
+                    'midterm_exam_grade' => $grades->midterm_exam_grade,
+                    'midter_final_grade' => $grades->midter_final_grade,
+                    'finals_quiz_grade' => $grades->finals_quiz_grade,
+                    'finals_exam_grade' => $grades->finals_exam_grade,
+                    'finals_final_grade' => $grades->finals_final_grade,
+                ];
+                $datas[] = $data;
+            }
+            return response()->json($datas);
 
         } else {
             $notes = StudentNote::where('subject_code', $request->subject_code)->get();
@@ -239,7 +257,6 @@ class TSApiController extends Controller
 
     public function editSubject(Request $request)
     {
-
         if (empty($request->all()) || !isset($request->id)) {
             return response()->json([
                 'error' => 'Oops!',
@@ -277,6 +294,19 @@ class TSApiController extends Controller
         }
 
         return response()->json($stud);
+    }
+
+    public function getNotes(Request $request)
+    {
+        if (empty($request->all()) || !isset($request->subject_code)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $note = StudentNote::where('subject_code', $request->subject_code)->get();
+
+        return response()->json($note);
     }
 
 }
