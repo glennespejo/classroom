@@ -66,7 +66,7 @@ class TSApiController extends Controller
         $subj = new SubjectSchedule;
         $subj->fill($request->all())->save();
 
-        return response()->json($user);
+        return response()->json($subj);
     }
 
     public function getSchedules(Request $request)
@@ -211,6 +211,52 @@ class TSApiController extends Controller
         $note->fill($request->all)->save();
 
         return response()->json($note);
+    }
+
+    public function addStudentSubject(Request $request)
+    {
+        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $stud = StudentSubject::where('subject_code', $request->subject_code)->first();
+        if ($stud) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Student is already registered.',
+            ], 400);
+        }
+
+        $stud = new StudentSubject;
+        $stud->subject_code = $request->subject_code;
+        $stud->student_id = $request->student_id;
+        $stud->save();
+
+        return response()->json($stud);
+    }
+
+    public function editSubject(Request $request)
+    {
+
+        if (empty($request->all()) || !isset($request->sched_id)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $stud = SubjectSchedule::find($request->sched_id);
+        if (empty($stud)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Student is already registered.',
+            ], 400);
+        }
+        $stud->fill($request->all())->save();
+
+        return response()->json($stud);
+
     }
 
 }
