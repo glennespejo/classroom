@@ -198,4 +198,19 @@ class TSApiController extends Controller
         return response()->json($grade);
     }
 
+    public function addNote(Request $request)
+    {
+        if (empty($request->all()) || !isset($request->subject_code)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $note = new StudentNote;
+
+        $note->fill($request->all)->save();
+
+        return response()->json($note);
+    }
+
 }

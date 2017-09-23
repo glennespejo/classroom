@@ -31,8 +31,10 @@ Route::get('/get/schedule', 'TSApiController@getSchedules');
 Route::get('/student/grade', 'TSApiController@getGrades');
 // add grade pass subject_code and student_id
 Route::post('/add/grade', 'TSApiController@addGrades');
-// update grade pass subject_code and student_id
+// update grade pass subject_code and student_idssss
 Route::patch('/update/grade', 'TSApiController@updateGrades');
+// pass subject_code
+Route::post('add/note', 'TSApiController@addNote');
 
 Route::post('/register', 'TSApiController@register');
 
