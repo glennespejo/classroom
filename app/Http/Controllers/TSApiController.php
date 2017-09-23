@@ -250,7 +250,7 @@ class TSApiController extends Controller
         if (empty($stud)) {
             return response()->json([
                 'error' => 'Oops!',
-                'message' => 'Student is already registered.',
+                'message' => 'Invalid request.',
             ], 400);
         }
         $stud->fill($request->all())->save();
