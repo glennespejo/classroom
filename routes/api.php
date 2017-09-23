@@ -23,7 +23,10 @@ Route::resource('student-attendances', 'StudentAttendaceController');
 Route::resource('student-grades', 'StudentGradeController');
 //register Schedule pass teacher_id
 Route::post('/register/subject', 'TSApiController@regSubject');
+// pass
 Route::post('/edit/subject', 'TSApiController@editSubject');
+// pass id
+Route::get('/edit/subject', 'TSApiController@editSubject');
 // get classroom pass subject code
 Route::get('/get/classroom', 'TSApiController@getClassroom');
 //pass teacher_id
