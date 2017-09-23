@@ -261,7 +261,6 @@ class TSApiController extends Controller
 
     public function getSubjectSpec(Request $request)
     {
-
         if (empty($request->all()) || !isset($request->sched_id)) {
             return response()->json([
                 'error' => 'Oops!',
