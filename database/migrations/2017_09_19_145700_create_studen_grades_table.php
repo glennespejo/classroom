@@ -22,7 +22,7 @@ class CreateStudenGradesTable extends Migration
             $table->string('prelim_final_grade')->nullable();
             $table->string('midterm_quiz_grade')->nullable();
             $table->string('midterm_exam_grade')->nullable();
-            $table->string('midter_final_grade')->nullable();
+            $table->string('midterm_final_grade')->nullable();
             $table->string('finals_quiz_grade')->nullable();
             $table->string('finals_exam_grade')->nullable();
             $table->string('finals_final_grade')->nullable();

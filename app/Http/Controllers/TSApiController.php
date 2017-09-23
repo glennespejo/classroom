@@ -124,7 +124,7 @@ class TSApiController extends Controller
                     'prelim_final_grade' => $grades->prelim_final_grade,
                     'midterm_quiz_grade' => $grades->midterm_quiz_grade,
                     'midterm_exam_grade' => $grades->midterm_exam_grade,
-                    'midter_final_grade' => $grades->midter_final_grade,
+                    'midterm_final_grade' => $grades->midterm_final_grade,
                     'finals_quiz_grade' => $grades->finals_quiz_grade,
                     'finals_exam_grade' => $grades->finals_exam_grade,
                     'finals_final_grade' => $grades->finals_final_grade,

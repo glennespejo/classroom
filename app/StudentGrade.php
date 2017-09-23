@@ -14,7 +14,7 @@ class StudentGrade extends Model
         'prelim_final_grade',
         'midterm_quiz_grade',
         'midterm_exam_grade',
-        'midter_final_grade',
+        'midterm_final_grade',
         'finals_quiz_grade',
         'finals_exam_grade',
         'finals_final_grade',
