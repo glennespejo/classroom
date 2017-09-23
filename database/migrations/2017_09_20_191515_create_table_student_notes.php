@@ -15,7 +15,7 @@ class CreateTableStudentNotes extends Migration
     {
         Schema::create('student_notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('student_subject_id')->nullable();
+            $table->string('subject_code')->nullable();
             $table->longText('notes')->nullable();
             $table->timestamps();
         });

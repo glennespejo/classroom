@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\StudentGrade;
+use App\StudentNote;
 use App\StudentSubject;
 use App\SubjectSchedule;
 use App\User;
@@ -91,13 +92,12 @@ class TSApiController extends Controller
 
     public function getClassroom(Request $request)
     {
-        if (!isset($request->subject_code)) {
+        if (!isset($request->subject_code) || !isset($request->user_id)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Invalid request.',
             ], 400);
         }
-
         $class = StudentSubject::where('subject_code', $request->subject_code)->first();
 
         if (empty($class)) {
@@ -107,9 +107,18 @@ class TSApiController extends Controller
             ], 404);
         }
 
-        $results = $class->student()->get();
+        $user = User::find($request->user_id);
 
-        return response()->json($results);
+        if ($user->type === "teacher") {
+
+            $results = $class->student()->get();
+
+            return response()->json($results);
+
+        } else {
+            $notes = StudentNote::where('subject_code', $request->subject_code)->get();
+            return response()->json($notes);
+        }
 
     }
 
@@ -188,4 +197,5 @@ class TSApiController extends Controller
 
         return response()->json($grade);
     }
+
 }

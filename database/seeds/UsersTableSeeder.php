@@ -1,6 +1,7 @@
 <?php
 
 use App\StudentGrade;
+use App\StudentNote;
 use App\StudentSubject;
 use App\SubjectSchedule;
 use App\User;
@@ -60,5 +61,10 @@ class UsersTableSeeder extends Seeder
         $subject_studs->prelim_exam_grade = '75';
         $subject_studs->prelim_final_grade = '90';
         $subject_studs->save();
+
+        $note = new StudentNote;
+        $note->subject_code = 'ENGL01';
+        $note->notes = 'Wuzzup! Wuzzzup!';
+        $note->save();
     }
 }
