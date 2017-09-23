@@ -240,13 +240,13 @@ class TSApiController extends Controller
     public function editSubject(Request $request)
     {
 
-        if (empty($request->all()) || !isset($request->sched_id)) {
+        if (empty($request->all()) || !isset($request->id)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
-        $stud = SubjectSchedule::find($request->sched_id);
+        $stud = SubjectSchedule::find($request->id);
         if (empty($stud)) {
             return response()->json([
                 'error' => 'Oops!',
