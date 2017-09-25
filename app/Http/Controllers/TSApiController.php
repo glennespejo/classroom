@@ -209,11 +209,26 @@ class TSApiController extends Controller
                 'message' => 'Student is not enrolled.',
             ], 404);
         }
-        $grade = StudentGrade::find($user->id);
+        $grades = StudentGrade::find($user->id);
 
-        $grade->fill($request->all())->save();
+        $grades->fill($request->all())->save();
 
-        return response()->json($grade);
+        $result = User::find($request->student_id);
+        $data = [
+            'id' => $result->id,
+            'first_name' => $result->first_name,
+            'last_name' => $result->last_name,
+            'prelim_quiz_grade' => $grades->prelim_quiz_grade,
+            'prelim_exam_grade' => $grades->prelim_exam_grade,
+            'prelim_final_grade' => $grades->prelim_final_grade,
+            'midterm_quiz_grade' => $grades->midterm_quiz_grade,
+            'midterm_exam_grade' => $grades->midterm_exam_grade,
+            'midterm_final_grade' => $grades->midterm_final_grade,
+            'finals_quiz_grade' => $grades->finals_quiz_grade,
+            'finals_exam_grade' => $grades->finals_exam_grade,
+            'finals_final_grade' => $grades->finals_final_grade,
+        ];
+        return response()->json($data);
     }
 
     public function addNote(Request $request)
@@ -251,6 +266,11 @@ class TSApiController extends Controller
         $stud->subject_code = $request->subject_code;
         $stud->student_id = $request->student_id;
         $stud->save();
+
+        $stud_grad = new StudentGrade;
+        $stud_grad->subject_code = $request->subject_code;
+        $stud_grad->student_id = $request->student_id;
+        $stud_grad->save();
 
         return response()->json($stud);
     }
@@ -307,6 +327,41 @@ class TSApiController extends Controller
         $note = StudentNote::where('subject_code', $request->subject_code)->get();
 
         return response()->json($note);
+    }
+
+    public function updateNotes(Request $request)
+    {
+        if (empty($request->all()) || !isset($request->id)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $note = StudentNote::find($request->id);
+
+        $note->fill($request->all())->save();
+
+        return response()->json($note);
+    }
+
+    public function delNote(Request $request)
+    {
+
+        if (empty($request->all()) || !isset($request->id)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $not = StudentNote::find($request->id);
+        if (empty($not)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
+        $not->delete();
+        return;
     }
 
 }
