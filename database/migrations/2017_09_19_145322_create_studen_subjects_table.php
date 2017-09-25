@@ -16,6 +16,7 @@ class CreateStudenSubjectsTable extends Migration
         Schema::create('student_subjects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject_code')->nullable();
+            $table->string('teacher_id')->nullable();
             $table->string('student_id')->nullable();
             $table->timestamps();
         });

@@ -8,7 +8,8 @@ class StudentSubject extends Model
 {
     protected $fillable = [
         'subject_code',
-        'student_id'
+        'student_id',
+        'teacher_id',
     ];
 
     public function student()

@@ -24,13 +24,13 @@ class UsersTableSeeder extends Seeder
         $user->type = 'admin';
         $user->save();
 
-        $user = new User;
-        $user->first_name = 'Ricardo';
-        $user->last_name = 'Sanchez';
-        $user->email = 'teacher@teacher.com';
-        $user->password = \Hash::make('admin');
-        $user->type = 'teacher';
-        $user->save();
+        $teacher = new User;
+        $teacher->first_name = 'Ricardo';
+        $teacher->last_name = 'Sanchez';
+        $teacher->email = 'teacher@teacher.com';
+        $teacher->password = \Hash::make('admin');
+        $teacher->type = 'teacher';
+        $teacher->save();
 
         $subject_sched = new SubjectSchedule;
         $subject_sched->subject_code = 'ENGL01';
@@ -61,6 +61,7 @@ class UsersTableSeeder extends Seeder
         $subject_stud = new StudentSubject;
         $subject_stud->subject_code = 'ENGL01';
         $subject_stud->student_id = $user->id;
+        $subject_stud->student_id = $teacher->id;
         $subject_stud->save();
 
         $subject_studs = new StudentGrade;

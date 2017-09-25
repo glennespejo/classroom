@@ -90,7 +90,7 @@ class TSApiController extends Controller
             $subjects = [];
             $subjs = StudentSubject::where('student_id', $request->teacher_id)->get();
             foreach ($subjs as $subj) {
-                $subjects[] = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
+                $subjects[] = SubjectSchedule::where('subject_code', $subj->subject_code)->first();
             }
         }
         return response()->json($subjects);
@@ -254,7 +254,7 @@ class TSApiController extends Controller
 
     public function addStudentSubject(Request $request)
     {
-        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
+        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id) || !isset($request->teacher_id)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Your request is empty.',
@@ -271,6 +271,7 @@ class TSApiController extends Controller
         $stud_1 = new StudentSubject;
         $stud_1->subject_code = $request->subject_code;
         $stud_1->student_id = $request->student_id;
+        $stud_1->teacher_id = $request->teacher_id;
         $stud_1->save();
 
         $stud_grad = new StudentGrade;
