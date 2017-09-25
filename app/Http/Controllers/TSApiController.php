@@ -260,12 +260,25 @@ class TSApiController extends Controller
                 'message' => 'Your request is empty.',
             ], 400);
         }
+        if ($request->teacher_id === $request->student_id) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'User id is not allowed to enroll to oneself.',
+            ], 422);
+        }
         $stud = StudentSubject::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
         if ($stud) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Student is already registered.',
             ], 400);
+        }
+        $subj = SubjectSchedule::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
+        if (empty($sub)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Subject does not exist.',
+            ], 404);
         }
         $teach = User::find($request->teacher_id);
         if (empty($teach)) {
