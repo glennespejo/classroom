@@ -38,7 +38,7 @@ class UsersTableSeeder extends Seeder
         $subject_sched->day = 'monday';
         $subject_sched->time_start = '9:00 AM';
         $subject_sched->time_end = '1:00 PM';
-        $subject_sched->teacher_id = $user->id;
+        $subject_sched->teacher_id = $teacher->id;
         $subject_sched->save();
 
         $subject_sched = new SubjectSchedule;
@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
         $subject_sched->day = 'tuesday';
         $subject_sched->time_start = '9:00 AM';
         $subject_sched->time_end = '1:00 PM';
-        $subject_sched->teacher_id = $user->id;
+        $subject_sched->teacher_id = $teacher->id;
         $subject_sched->save();
 
         $user = new User;
@@ -61,7 +61,7 @@ class UsersTableSeeder extends Seeder
         $subject_stud = new StudentSubject;
         $subject_stud->subject_code = 'ENGL01';
         $subject_stud->student_id = $user->id;
-        $subject_stud->student_id = $teacher->id;
+        $subject_stud->teacher_id = $teacher->id;
         $subject_stud->save();
 
         $subject_studs = new StudentGrade;
