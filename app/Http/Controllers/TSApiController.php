@@ -78,7 +78,8 @@ class TSApiController extends Controller
             ], 400);
         }
 
-        $user = SubjectSchedule::where('teacher_id', $request->teacher_id)->get();
+        $user = User::find($request->teacher_id);
+
 
         if (empty($user)) {
             return response()->json([
@@ -87,7 +88,16 @@ class TSApiController extends Controller
             ], 404);
         }
 
-        return response()->json($user);
+        if ($user->type = 'teacher') {
+            $subjects = SubjectSchedule::where('teacher_id', $request->teacher_id)->get();
+        } else {
+            $subjects = [];
+            $subjs = StudentSubject::where('student_id', $request->teacher_id)->get();
+            foreach($subjs as subj){
+                $subjects = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
+            }
+        }
+        return response()->json($subjects);
     }
 
     public function getClassroom(Request $request)
