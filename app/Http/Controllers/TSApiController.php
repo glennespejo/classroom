@@ -77,23 +77,19 @@ class TSApiController extends Controller
                 'message' => 'Invalid request.',
             ], 400);
         }
-
         $user = User::find($request->teacher_id);
-
-
         if (empty($user)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'User does not exist.',
             ], 404);
         }
-
-        if ($user->type = 'teacher') {
+        if ($user->type === 'teacher') {
             $subjects = SubjectSchedule::where('teacher_id', $request->teacher_id)->get();
         } else {
             $subjects = [];
             $subjs = StudentSubject::where('student_id', $request->teacher_id)->get();
-            foreach($subjs as subj){
+            foreach ($subjs as $subj) {
                 $subjects = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
             }
         }
