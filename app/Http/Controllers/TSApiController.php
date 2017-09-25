@@ -260,14 +260,20 @@ class TSApiController extends Controller
                 'message' => 'Your request is empty.',
             ], 400);
         }
-        $stud = StudentSubject::where('subject_code', $request->subject_code)->first();
+        $stud = StudentSubject::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
         if ($stud) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Student is already registered.',
             ], 400);
         }
-
+        $teach = User::find($request->teacher_id);
+        if (empty($teach)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Teacher does not exist.',
+            ], 404);
+        }
         $stud_1 = new StudentSubject;
         $stud_1->subject_code = $request->subject_code;
         $stud_1->student_id = $request->student_id;
