@@ -268,10 +268,10 @@ class TSApiController extends Controller
             ], 400);
         }
 
-        $stud = new StudentSubject;
-        $stud->subject_code = $request->subject_code;
-        $stud->student_id = $request->student_id;
-        $stud->save();
+        $stud_1 = new StudentSubject;
+        $stud_1->subject_code = $request->subject_code;
+        $stud_1->student_id = $request->student_id;
+        $stud_1->save();
 
         $stud_grad = new StudentGrade;
         $stud_grad->subject_code = $request->subject_code;
@@ -281,7 +281,7 @@ class TSApiController extends Controller
         $subjects = [];
         $subjs = StudentSubject::where('student_id', $request->student_id)->get();
         foreach ($subjs as $subj) {
-            $subjects = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
+            $subjects[] = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
         }
 
         return response()->json($subjects);
