@@ -274,7 +274,7 @@ class TSApiController extends Controller
             ], 400);
         }
         $subj = SubjectSchedule::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
-        if (empty($sub)) {
+        if (empty($subj)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Subject does not exist.',
