@@ -274,6 +274,12 @@ class TSApiController extends Controller
                 'message' => 'Teacher does not exist.',
             ], 404);
         }
+        if ($teach->type !== "teacher") {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'User is not a teacher.',
+            ], 400);
+        }
         $stud_1 = new StudentSubject;
         $stud_1->subject_code = $request->subject_code;
         $stud_1->student_id = $request->student_id;
