@@ -41,6 +41,15 @@ class UsersTableSeeder extends Seeder
         $subject_sched->teacher_id = $user->id;
         $subject_sched->save();
 
+        $subject_sched = new SubjectSchedule;
+        $subject_sched->subject_code = 'Filipino1';
+        $subject_sched->subject_name = 'fili';
+        $subject_sched->day = 'tuesday';
+        $subject_sched->time_start = '9:00 AM';
+        $subject_sched->time_end = '1:00 PM';
+        $subject_sched->teacher_id = $user->id;
+        $subject_sched->save();
+
         $user = new User;
         $user->first_name = 'Jessica';
         $user->last_name = 'Sogo';
