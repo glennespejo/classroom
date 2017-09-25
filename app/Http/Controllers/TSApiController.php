@@ -291,7 +291,8 @@ class TSApiController extends Controller
         $stud_grad->student_id = $request->student_id;
         $stud_grad->save();
 
-        return response()->json($stud_1);
+        $subjects = SubjectSchedule::where('subject_code', $stud_1->subject_code)->where('teacher_id', $stud_1->teacher_id)->first();
+        return response()->json($subjects);
     }
 
     public function editSubject(Request $request)
