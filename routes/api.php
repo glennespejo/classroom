@@ -40,7 +40,7 @@ Route::patch('/update/grade', 'TSApiController@updateGrades');
 // pass subject_code
 Route::post('/add/note', 'TSApiController@addNote');
 // pass id
-Route::post('/update/note', 'TSApiController@addNote');
+Route::post('/update/note', 'TSApiController@updateNotes');
 
 Route::post('/destroy/note', 'TSApiController@delNote');
 
