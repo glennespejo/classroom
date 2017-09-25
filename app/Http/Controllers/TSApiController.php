@@ -90,7 +90,7 @@ class TSApiController extends Controller
             $subjects = [];
             $subjs = StudentSubject::where('student_id', $request->teacher_id)->get();
             foreach ($subjs as $subj) {
-                $subjects = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
+                $subjects[] = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
             }
         }
         return response()->json($subjects);
@@ -278,13 +278,7 @@ class TSApiController extends Controller
         $stud_grad->student_id = $request->student_id;
         $stud_grad->save();
 
-        $subjects = [];
-        $subjs = StudentSubject::where('student_id', $request->student_id)->get();
-        foreach ($subjs as $subj) {
-            $subjects[] = SubjectSchedule::where('subject_code', $subj->subject_code)->get();
-        }
-
-        return response()->json($subjects);
+        return response()->json($stud_1);
     }
 
     public function editSubject(Request $request)
