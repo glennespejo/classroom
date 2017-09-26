@@ -267,7 +267,7 @@ class TSApiController extends Controller
         }
         $note = new StudentNote;
 
-        $note->fill($request->all)->save();
+        $note->fill($request->all())->save();
 
         return response()->json($note);
     }
