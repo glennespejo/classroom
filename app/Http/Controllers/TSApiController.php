@@ -407,6 +407,7 @@ class TSApiController extends Controller
                 'month' => $time->format('M'),
                 'day' => $time->format('j'),
                 'year' => $time->format('Y'),
+                'time' => $time->format('g:i a'),
             ];
         }
 
