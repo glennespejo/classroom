@@ -396,7 +396,7 @@ class TSApiController extends Controller
                 'message' => 'Your request is empty.',
             ], 400);
         }
-        $notes = StudentNote::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->get();
+        $notes = StudentNote::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->orderBy('created_at', 'desc')->get();
         $datas = [];
         foreach ($notes as $key => $note) {
             $time = $note->created_at;
