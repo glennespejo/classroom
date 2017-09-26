@@ -20,7 +20,7 @@ class CreateSubjectSchedules extends Migration
             $table->string('day')->nullable();;
             $table->string('time_start')->nullable();;
             $table->string('time_end')->nullable();;
-            $table->integer('teacher_id')->unsigned();
+            $table->string('teacher_id')->nullable();
             $table->timestamps();
         });
     }
