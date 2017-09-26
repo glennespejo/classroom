@@ -300,7 +300,7 @@ class TSApiController extends Controller
                 'message' => 'Subject does not exist.',
             ], 404);
         }
-        if ((int)$request->teacher_id != $request->teacher_id) {
+        if ((int) $request->teacher_id != $request->teacher_id) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Invalid teacher id.',
@@ -390,15 +390,27 @@ class TSApiController extends Controller
 
     public function getNotes(Request $request)
     {
-        if (empty($request->all()) || !isset($request->subject_code)) {
+        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->teacher_id)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
-        $note = StudentNote::where('subject_code', $request->subject_code)->get();
+        $notes = StudentNote::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->get();
+        $datas = [];
+        foreach ($notes as $key => $note) {
+            $time = $note->created_at;
+            $datas[] = [
+                'subject_code' => $note->subject_code,
+                'teacher_id' => $note->teacher_id,
+                'notes' => $note->notes,
+                'month' => $time->format('M'),
+                'day' => $time->format('j'),
+                'year' => $time->format('Y'),
+            ];
+        }
 
-        return response()->json($note);
+        return response()->json($datas);
     }
 
     public function updateNotes(Request $request)
