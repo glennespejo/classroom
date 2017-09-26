@@ -42,7 +42,7 @@ Route::post('/add/note', 'TSApiController@addNote');
 // pass id
 Route::post('/update/note', 'TSApiController@updateNotes');
 
-Route::post('/destroy/note', 'TSApiController@delNote');
+Route::delete('/destroy/note', 'TSApiController@delNote');
 
 Route::get('/get/notes', 'TSApiController@getNotes');
 
