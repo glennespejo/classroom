@@ -73,6 +73,7 @@ class UsersTableSeeder extends Seeder
         $subject_studs->save();
 
         $note = new StudentNote;
+        $note->teacher_id = $teacher->id;
         $note->subject_code = 'ENGL01';
         $note->notes = 'Wuzzup! Wuzzzup!';
         $note->save();

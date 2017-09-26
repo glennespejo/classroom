@@ -9,6 +9,7 @@ class StudentNote extends Model
 
     protected $fillable = [
         'subject_code',
+        'teacher_id',
         'notes',
     ];
 }

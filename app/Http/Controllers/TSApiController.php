@@ -300,6 +300,12 @@ class TSApiController extends Controller
                 'message' => 'Subject does not exist.',
             ], 404);
         }
+        if ((int)$request->teacher_id != $request->teacher_id) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Invalid teacher id.',
+            ], 404);
+        }
         $teach = User::find($request->teacher_id);
         if (empty($teach)) {
             return response()->json([
