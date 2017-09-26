@@ -48,6 +48,8 @@ Route::get('/get/notes', 'TSApiController@getNotes');
 
 Route::post('/enroll/subject', 'TSApiController@addStudentSubject');
 
+Route::post('/attendance', 'TSApiController@attendance');
+
 Route::post('/register', 'TSApiController@register');
 
 Route::post('/login', 'LoginController@loginApi');

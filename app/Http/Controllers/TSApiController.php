@@ -401,6 +401,7 @@ class TSApiController extends Controller
         foreach ($notes as $key => $note) {
             $time = $note->created_at;
             $datas[] = [
+                'id' => $note->id,
                 'subject_code' => $note->subject_code,
                 'teacher_id' => $note->teacher_id,
                 'notes' => $note->notes,
@@ -447,6 +448,16 @@ class TSApiController extends Controller
         }
         $not->delete();
         return;
+    }
+
+    public function attendance(Request $request)
+    {
+        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Your request is empty.',
+            ], 400);
+        }
     }
 
 }
