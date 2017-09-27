@@ -16,6 +16,7 @@ class CreateStudenAttendanceTable extends Migration
         Schema::create('student_attendances', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject_code')->nullable();
+            $table->string('teacher_id')->nullable();
             $table->string('student_id')->nullable();
             $table->enum('status', ['absent', 'present'])->default('present');
             $table->timestamps();

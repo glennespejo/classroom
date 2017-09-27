@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\StudentAttendance;
 use App\StudentGrade;
 use App\StudentNote;
 use App\StudentSubject;
@@ -452,6 +453,12 @@ class TSApiController extends Controller
 
     public function attendance(Request $request)
     {
+        if (isset($request->date)) {
+            $fromdate = new \DateTime($request->date . '00:00:00');
+            $todate = new \DateTime($request->date . '23:59:59');
+            $attendance = StudentAttendance::where('created_at', '<=', $todate)->where('created_at', '>=', $fromdate)->get();
+            dd($attendance);
+        }
         if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
             return response()->json([
                 'error' => 'Oops!',
