@@ -475,19 +475,41 @@ class TSApiController extends Controller
                 $data['student_name'] = $value->first_name . " " . $value->last_name;
                 if (in_array($value->id, $attendances)) {
                     $data['status'] = 'absent';
+                    $data['absent'] = true;
                 } else {
                     $data['status'] = 'present';
+                    $data['absent'] = false;
                 }
                 $datas[] = $data;
             }
             return response()->json($datas);
         }
-        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
+        if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id) || !isset($request->teacher_id)) {
             return response()->json([
                 'error' => 'Oops!',
                 'message' => 'Your request is empty.',
             ], 400);
         }
+
+        $fromdate = new \DateTime($request->date . '00:00:00');
+        $todate = new \DateTime($request->date . '23:59:59');
+
+        $attendance = StudentAttendance::where('subject_code', $request->subject_code)
+            ->where('teacher_id', $request->teacher_id)
+            ->where('student_id', $request->student_id)
+            ->where('created_at', '<=', $todate)
+            ->where('created_at', '>=', $fromdate)
+            ->first();
+
+        if ($attendance) {
+            StudentAttendance::find($attendance)->delete();
+            return;
+        }
+
+        $student = new StudentAttendance;
+        $student->fill($request->all())->save();
+
+        return response()->json($student);
     }
 
 }
