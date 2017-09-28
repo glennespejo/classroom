@@ -18,5 +18,6 @@ class StudentGrade extends Model
         'finals_quiz_grade',
         'finals_exam_grade',
         'finals_final_grade',
+        'total',
     ];
 }

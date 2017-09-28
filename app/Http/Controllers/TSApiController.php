@@ -108,6 +108,7 @@ class TSApiController extends Controller
                     'finals_quiz_grade' => $grades->finals_quiz_grade,
                     'finals_exam_grade' => $grades->finals_exam_grade,
                     'finals_final_grade' => $grades->finals_final_grade,
+                    'total' => $grades->total,
                 ];
                 $subje['grades'] = $grades;
                 $subjects[] = $subje;
@@ -155,6 +156,7 @@ class TSApiController extends Controller
                     'finals_quiz_grade' => $grades->finals_quiz_grade,
                     'finals_exam_grade' => $grades->finals_exam_grade,
                     'finals_final_grade' => $grades->finals_final_grade,
+                    'total' => $grades->total,
                 ];
                 $datas[] = $data;
             }
@@ -254,6 +256,7 @@ class TSApiController extends Controller
             'finals_quiz_grade' => $grades->finals_quiz_grade,
             'finals_exam_grade' => $grades->finals_exam_grade,
             'finals_final_grade' => $grades->finals_final_grade,
+            'total' => $grades->total,
         ];
         return response()->json($data);
     }
@@ -343,6 +346,7 @@ class TSApiController extends Controller
             'finals_quiz_grade' => $grades->finals_quiz_grade,
             'finals_exam_grade' => $grades->finals_exam_grade,
             'finals_final_grade' => $grades->finals_final_grade,
+            'total' => $grades->total,
         ];
         $subje['grades'] = $grades;
         return response()->json($subje);
