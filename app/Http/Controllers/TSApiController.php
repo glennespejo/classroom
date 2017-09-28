@@ -140,7 +140,7 @@ class TSApiController extends Controller
 
             $results = $class->student()->get();
             $datas = [];
-            foreach ($results as $result) {
+            foreach ($results as $key => $result) {
                 $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->id)->first();
                 $data = [
                     'id' => $result->id,
@@ -157,7 +157,7 @@ class TSApiController extends Controller
                     'finals_final_grade' => $grades->finals_final_grade,
                     'total' => $grades->total,
                 ];
-                $datas[] = $data;
+                $datas[$key] = $data;
             }
             return response()->json($datas);
 
