@@ -549,8 +549,9 @@ class TSApiController extends Controller
         $datas = [];
         $data = [];
         $class = StudentSubject::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
-        $results = $class->student()->get();
-        foreach ($results as $key => $value) {
+        $results = StudentSubject::where('teacher_id', $request->teacher_id)->where('subject_code', $request->subject_code)->get();
+        foreach ($results as $key => $res) {
+            $value = User::find($res->student_id);
             $data['id'] = $value->id;
             $data['student_name'] = $value->first_name . " " . $value->last_name;
             if (in_array($value->id, $attendances)) {
