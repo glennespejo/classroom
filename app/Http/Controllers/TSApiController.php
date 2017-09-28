@@ -141,11 +141,12 @@ class TSApiController extends Controller
             $results = StudentSubject::where('teacher_id', $user->id)->where('subject_code', $request->subject_code)->get();
             $datas = [];
             foreach ($results as $key => $result) {
-                $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->id)->first();
+                $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->student_id)->first();
+                $stud = User::find($result->student_id);
                 $data = [
-                    'id' => $result->id,
-                    'first_name' => $result->first_name,
-                    'last_name' => $result->last_name,
+                    'id' => $stud->id,
+                    'first_name' => $stud->first_name,
+                    'last_name' => $stud->last_name,
                     'prelim_quiz_grade' => $grades->prelim_quiz_grade,
                     'prelim_exam_grade' => $grades->prelim_exam_grade,
                     'prelim_final_grade' => $grades->prelim_final_grade,
