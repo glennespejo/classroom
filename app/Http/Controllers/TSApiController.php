@@ -453,11 +453,34 @@ class TSApiController extends Controller
 
     public function attendance(Request $request)
     {
-        if (isset($request->date)) {
+
+        if (isset($request->date) && isset($request->subject_code) && isset($request->id)) {
             $fromdate = new \DateTime($request->date . '00:00:00');
             $todate = new \DateTime($request->date . '23:59:59');
-            $attendance = StudentAttendance::where('created_at', '<=', $todate)->where('created_at', '>=', $fromdate)->get();
-            dd($attendance);
+            $attendance = StudentAttendance::where('subject_code', $request->subject_code)
+                ->where('teacher_id', $request->id)
+                ->where('created_at', '<=', $todate)
+                ->where('created_at', '>=', $fromdate)
+                ->get();
+            $attendances = [];
+            foreach ($attendance as $key => $value) {
+                $attendances[] = $value->student_id;
+            }
+            $datas = [];
+            $data = [];
+            $class = StudentSubject::where('subject_code', $request->subject_code)->first();
+            $results = $class->student()->get();
+            foreach ($results as $key => $value) {
+                $data['id'] = $value->id;
+                $data['student_name'] = $value->first_name . " " . $value->last_name;
+                if (in_array($value->id, $attendances)) {
+                    $data['status'] = 'absent';
+                } else {
+                    $data['status'] = 'present';
+                }
+                $datas[] = $data;
+            }
+            return response()->json($datas);
         }
         if (empty($request->all()) || !isset($request->subject_code) || !isset($request->student_id)) {
             return response()->json([
