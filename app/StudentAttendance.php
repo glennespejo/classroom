@@ -10,6 +10,7 @@ class StudentAttendance extends Model
         'subject_code',
         'teacher_id',
         'student_id',
+        'date',
         'status',
     ];
 }

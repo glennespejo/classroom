@@ -18,6 +18,7 @@ class CreateStudenAttendanceTable extends Migration
             $table->string('subject_code')->nullable();
             $table->string('teacher_id')->nullable();
             $table->string('student_id')->nullable();
+            $table->string('date')->nullable();
             $table->enum('status', ['absent', 'present'])->default('absent');
             $table->timestamps();
         });

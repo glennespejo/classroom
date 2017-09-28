@@ -459,8 +459,7 @@ class TSApiController extends Controller
             $todate = new \DateTime($request->date . '23:59:59');
             $attendance = StudentAttendance::where('subject_code', $request->subject_code)
                 ->where('teacher_id', $request->id)
-                ->where('created_at', '<=', $todate)
-                ->where('created_at', '>=', $fromdate)
+                ->where('date', $request->date)
                 ->get();
             $attendances = [];
             foreach ($attendance as $key => $value) {
@@ -497,8 +496,7 @@ class TSApiController extends Controller
         $attendance = StudentAttendance::where('subject_code', $request->subject_code)
             ->where('teacher_id', $request->teacher_id)
             ->where('student_id', $request->student_id)
-            ->where('created_at', '<=', $todate)
-            ->where('created_at', '>=', $fromdate)
+            ->where('date', $request->date)
             ->first();
 
         if ($attendance) {
@@ -511,8 +509,7 @@ class TSApiController extends Controller
 
         $attendance = StudentAttendance::where('subject_code', $request->subject_code)
             ->where('teacher_id', $request->teacher_id)
-            ->where('created_at', '<=', $todate)
-            ->where('created_at', '>=', $fromdate)
+            ->where('date', $request->date)
             ->get();
         $attendances = [];
         foreach ($attendance as $key => $value) {
