@@ -289,7 +289,9 @@ class TSApiController extends Controller
                 'message' => 'User id is not allowed to enroll to oneself.',
             ], 422);
         }
-        $stud = StudentSubject::where('subject_code', $request->subject_code)->where('student_id', $request->student_id)->first();
+        $stud = StudentSubject::where('subject_code', $request->subject_code)
+            ->where('student_id', $request->student_id)
+            ->where('teacher_id', $request->teacher_id)->first();
         if ($stud) {
             return response()->json([
                 'error' => 'Oops!',
