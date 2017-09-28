@@ -92,25 +92,24 @@ class TSApiController extends Controller
             $subjs = StudentSubject::where('student_id', $request->teacher_id)->get();
             foreach ($subjs as $subj) {
                 $subje = SubjectSchedule::where('subject_code', $subj->subject_code)->first();
-                $grades1 = StudentGrade::where('subject_code', $subj->subject_code)->where('student_id', $subj->student_id)->first();
+                $grades = StudentGrade::where('subject_code', $subj->subject_code)->where('student_id', $subj->student_id)->first();
                 if (empty($grades)) {
                     $subjects[] = $subje;
                     continue;
                 }
                 $grades = [
-                    'prelim_quiz_grade' => $grades1->prelim_quiz_grade,
-                    'prelim_exam_grade' => $grades1->prelim_exam_grade,
-                    'prelim_final_grade' => $grades1->prelim_final_grade,
-                    'midterm_quiz_grade' => $grades1->midterm_quiz_grade,
-                    'midterm_exam_grade' => $grades1->midterm_exam_grade,
-                    'midterm_final_grade' => $grades1->midterm_final_grade,
-                    'finals_quiz_grade' => $grades1->finals_quiz_grade,
-                    'finals_exam_grade' => $grades1->finals_exam_grade,
-                    'finals_final_grade' => $grades1->finals_final_grade,
-                    'total' => $grades1->total,
+                    'prelim_quiz_grade' => $grades->prelim_quiz_grade,
+                    'prelim_exam_grade' => $grades->prelim_exam_grade,
+                    'prelim_final_grade' => $grades->prelim_final_grade,
+                    'midterm_quiz_grade' => $grades->midterm_quiz_grade,
+                    'midterm_exam_grade' => $grades->midterm_exam_grade,
+                    'midterm_final_grade' => $grades->midterm_final_grade,
+                    'finals_quiz_grade' => $grades->finals_quiz_grade,
+                    'finals_exam_grade' => $grades->finals_exam_grade,
+                    'finals_final_grade' => $grades->finals_final_grade,
+                    'total' => $grades->total,
                 ];
                 $subje['grades'] = $grades;
-                $subje['total'] = $grades1->total;
                 $subjects[] = $subje;
 
             }
@@ -335,21 +334,20 @@ class TSApiController extends Controller
         $stud_grad->save();
 
         $subje = SubjectSchedule::where('subject_code', $stud_1->subject_code)->where('teacher_id', $stud_1->teacher_id)->first();
-        $grades1 = StudentGrade::where('subject_code', $stud_1->subject_code)->where('student_id', $request->student_id)->first();
+        $grades = StudentGrade::where('subject_code', $stud_1->subject_code)->where('student_id', $request->student_id)->first();
         $grades = [
-            'prelim_quiz_grade' => $grades1->prelim_quiz_grade,
-            'prelim_exam_grade' => $grades1->prelim_exam_grade,
-            'prelim_final_grade' => $grades1->prelim_final_grade,
-            'midterm_quiz_grade' => $grades1->midterm_quiz_grade,
-            'midterm_exam_grade' => $grades1->midterm_exam_grade,
-            'midterm_final_grade' => $grades1->midterm_final_grade,
-            'finals_quiz_grade' => $grades1->finals_quiz_grade,
-            'finals_exam_grade' => $grades1->finals_exam_grade,
-            'finals_final_grade' => $grades1->finals_final_grade,
-            'total' => $grades1->total,
+            'prelim_quiz_grade' => $grades->prelim_quiz_grade,
+            'prelim_exam_grade' => $grades->prelim_exam_grade,
+            'prelim_final_grade' => $grades->prelim_final_grade,
+            'midterm_quiz_grade' => $grades->midterm_quiz_grade,
+            'midterm_exam_grade' => $grades->midterm_exam_grade,
+            'midterm_final_grade' => $grades->midterm_final_grade,
+            'finals_quiz_grade' => $grades->finals_quiz_grade,
+            'finals_exam_grade' => $grades->finals_exam_grade,
+            'finals_final_grade' => $grades->finals_final_grade,
+            'total' => $grades->total,
         ];
         $subje['grades'] = $grades;
-        $subje['total'] = $grades1->total;
         return response()->json($subje);
     }
 
