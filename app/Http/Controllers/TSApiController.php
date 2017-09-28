@@ -502,7 +502,7 @@ class TSApiController extends Controller
             ->first();
 
         if ($attendance) {
-            StudentAttendance::find($attendance)->delete();
+            StudentAttendance::find($attendance->id)->delete();
             return;
         }
 
