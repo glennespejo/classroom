@@ -14,6 +14,6 @@ class StudentSubject extends Model
 
     public function student()
     {
-        return $this->belongsTo('App\User', 'student_id');
+        return $this->hasMany('App\User', 'student_id');
     }
 }

@@ -138,7 +138,7 @@ class TSApiController extends Controller
 
         if ($user->type === "teacher") {
 
-            $results = $class->student()->get();
+            $results = StudentSubject::where('teacher_id', $user->id)->where('subject_code', $request->subject_code)->get();
             $datas = [];
             foreach ($results as $key => $result) {
                 $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->id)->first();
