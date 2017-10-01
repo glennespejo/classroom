@@ -93,6 +93,9 @@ class TSApiController extends Controller
             foreach ($subjs as $subj) {
                 $subje = SubjectSchedule::where('subject_code', $subj->subject_code)->first();
                 $grades = StudentGrade::where('subject_code', $subj->subject_code)->where('student_id', $subj->student_id)->first();
+                $absent_count = StudentAttendance::where('student_id', $subj->student_id)
+                    ->where('subject_code', $subj->subject_code)
+                    ->where('teacher_id', $subj->teacher_id)->count();
                 if (empty($grades)) {
                     $subjects[] = $subje;
                     continue;
@@ -108,6 +111,7 @@ class TSApiController extends Controller
                     'finals_exam_grade' => $grades->finals_exam_grade,
                     'finals_final_grade' => $grades->finals_final_grade,
                     'total' => $grades->total,
+                    'absent_count' => $absent_count,
                 ];
                 $subje['grades'] = $grades;
                 $subjects[] = $subje;
@@ -143,6 +147,9 @@ class TSApiController extends Controller
             foreach ($results as $key => $result) {
                 $grades = StudentGrade::where('subject_code', $request->subject_code)->where('student_id', $result->student_id)->first();
                 $stud = User::find($result->student_id);
+                $absent_count = StudentAttendance::where('student_id', $result->student_id)
+                    ->where('subject_code', $result->subject_code)
+                    ->where('teacher_id', $result->teacher_id)->count();
                 $data = [
                     'id' => $stud->id,
                     'first_name' => $stud->first_name,
@@ -157,6 +164,7 @@ class TSApiController extends Controller
                     'finals_exam_grade' => $grades->finals_exam_grade,
                     'finals_final_grade' => $grades->finals_final_grade,
                     'total' => $grades->total,
+                    'absent_count' => $absent_count,
                 ];
                 $datas[$key] = $data;
             }
@@ -243,6 +251,10 @@ class TSApiController extends Controller
         $grades->fill($request->all())->save();
 
         $result = User::find($request->student_id);
+
+        $absent_count = StudentAttendance::where('student_id', $request->student_id)
+            ->where('subject_code', $request->subject_code)->count();
+
         $data = [
             'id' => $result->id,
             'first_name' => $result->first_name,
@@ -257,6 +269,8 @@ class TSApiController extends Controller
             'finals_exam_grade' => $grades->finals_exam_grade,
             'finals_final_grade' => $grades->finals_final_grade,
             'total' => $grades->total,
+            'absent_count' => $absent_count,
+
         ];
         return response()->json($data);
     }
@@ -338,6 +352,11 @@ class TSApiController extends Controller
 
         $subje = SubjectSchedule::where('subject_code', $stud_1->subject_code)->where('teacher_id', $stud_1->teacher_id)->first();
         $grades = StudentGrade::where('subject_code', $stud_1->subject_code)->where('student_id', $request->student_id)->first();
+
+        $absent_count = StudentAttendance::where('student_id', $request->student_id)
+            ->where('subject_code', $stud_1->subject_code)
+            ->where('teacher_id', $stud_1->teacher_id)->count();
+
         $grades = [
             'prelim_quiz_grade' => $grades->prelim_quiz_grade,
             'prelim_exam_grade' => $grades->prelim_exam_grade,
@@ -349,6 +368,7 @@ class TSApiController extends Controller
             'finals_exam_grade' => $grades->finals_exam_grade,
             'finals_final_grade' => $grades->finals_final_grade,
             'total' => $grades->total,
+            'absent_count' => $absent_count,
         ];
         $subje['grades'] = $grades;
         return response()->json($subje);
