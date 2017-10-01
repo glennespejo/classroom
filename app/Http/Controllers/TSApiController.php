@@ -495,12 +495,19 @@ class TSApiController extends Controller
             $results = StudentSubject::where('teacher_id', $request->id)->where('subject_code', $request->subject_code)->get();
             foreach ($results as $key => $res) {
                 $value = User::find($res->student_id);
+
+                $absent_count = StudentAttendance::where('student_id', $value->id)
+                    ->where('subject_code', $request->subject_code)
+                    ->where('teacher_id', $request->teacher_id)->count();
+
                 $data['id'] = $value->id;
                 $data['student_name'] = $value->first_name . " " . $value->last_name;
                 if (in_array($value->id, $attendances)) {
                     $data['status'] = 'absent';
+                    $data['absent_count'] = $absent_count;
                     $data['absent'] = true;
                 } else {
+                    $data['absent_count'] = $absent_count;
                     $data['status'] = 'present';
                     $data['absent'] = false;
                 }
@@ -539,15 +546,23 @@ class TSApiController extends Controller
             $data = [];
             $class = StudentSubject::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
             $results = StudentSubject::where('teacher_id', $request->teacher_id)->where('subject_code', $request->subject_code)->get();
+
             foreach ($results as $key => $res) {
                 $value = User::find($res->student_id);
+
+                $absent_count = StudentAttendance::where('student_id', $value->id)
+                    ->where('subject_code', $request->subject_code)
+                    ->where('teacher_id', $request->teacher_id)->count();
+
                 $data['id'] = $value->id;
                 $data['student_name'] = $value->first_name . " " . $value->last_name;
                 if (in_array($value->id, $attendances)) {
                     $data['status'] = 'absent';
+                    $data['absent_count'] = $absent_count;
                     $data['absent'] = true;
                 } else {
                     $data['status'] = 'present';
+                    $data['absent_count'] = $absent_count;
                     $data['absent'] = false;
                 }
                 $datas[] = $data;
@@ -570,15 +585,23 @@ class TSApiController extends Controller
         $data = [];
         $class = StudentSubject::where('subject_code', $request->subject_code)->where('teacher_id', $request->teacher_id)->first();
         $results = StudentSubject::where('teacher_id', $request->teacher_id)->where('subject_code', $request->subject_code)->get();
+
         foreach ($results as $key => $res) {
             $value = User::find($res->student_id);
+
+            $absent_count = StudentAttendance::where('student_id', $value->id)
+                ->where('subject_code', $request->subject_code)
+                ->where('teacher_id', $request->teacher_id)->count();
+
             $data['id'] = $value->id;
             $data['student_name'] = $value->first_name . " " . $value->last_name;
             if (in_array($value->id, $attendances)) {
                 $data['status'] = 'absent';
+                $data['absent_count'] = $absent_count;
                 $data['absent'] = true;
             } else {
                 $data['status'] = 'present';
+                $data['absent_count'] = $absent_count;
                 $data['absent'] = false;
             }
             $datas[] = $data;
