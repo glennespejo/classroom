@@ -53,3 +53,5 @@ Route::post('/attendance', 'TSApiController@attendance');
 Route::post('/register', 'TSApiController@register');
 
 Route::post('/login', 'LoginController@loginApi');
+
+Route::get('/password', 'LoginController@changePass');
