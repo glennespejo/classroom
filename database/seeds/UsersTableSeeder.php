@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
         $user = new User;
         $user->first_name = 'Admin';
         $user->last_name = 'Admin';
+        $user->username = 'Admin';
         $user->email = 'admin@admin.com';
         $user->password = \Hash::make('admin');
         $user->type = 'admin';
@@ -25,6 +26,7 @@ class UsersTableSeeder extends Seeder
         $teacher = new User;
         $teacher->first_name = 'Ricardo';
         $teacher->last_name = 'Sanchez';
+        $teacher->username = 'Teacher';
         $teacher->email = 'teacher@teacher.com';
         $teacher->password = \Hash::make('admin');
         $teacher->type = 'teacher';

@@ -10,7 +10,7 @@ class LoginController extends Controller
 
     public function loginApi(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->orWhere('username', $request->email)->first();
         if (empty($user)) {
             return response()->json([
                 'error' => 'invalid_credentials',

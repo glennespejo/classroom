@@ -34,6 +34,13 @@ class TSApiController extends Controller
                 'message' => 'Email already exists.',
             ], 400);
         }
+        $user = User::where('username', $request->username)->first();
+        if ($user) {
+            return response()->json([
+                'error' => 'Oops!',
+                'message' => 'Username already exists.',
+            ], 400);
+        }
         if ($request->password !== $request->password_confirm) {
             return response()->json([
                 'error' => 'Oops!',
